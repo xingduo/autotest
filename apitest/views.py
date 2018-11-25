@@ -3,6 +3,12 @@ from django.shortcuts import render
 from apitest import views
 from django.http import HttpResponse, HttpResponseRedirect
 
+def home(request):
+	return render(request, 'home.html')
+
+def logout(request):
+	auth.logout(request)
+	return render(request,'login.html')
 
 def login(request):
 	if request.POST:
