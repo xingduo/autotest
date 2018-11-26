@@ -2,6 +2,8 @@ from django.contrib import auth
 from django.shortcuts import render
 from apitest import views
 from django.http import HttpResponse, HttpResponseRedirect
+from product.models import Product
+
 
 def home(request):
 	return render(request, 'home.html')
@@ -9,6 +11,11 @@ def home(request):
 def logout(request):
 	auth.logout(request)
 	return render(request,'login.html')
+
+def product_manage(request):
+	username = request.session.get('user','')
+	prodcut_list = Product.objects.all()
+	return render(request,'product_manage.html',{'user':username,'products':prodcut_list})
 
 def login(request):
 	if request.POST:
