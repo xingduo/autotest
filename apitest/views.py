@@ -4,7 +4,7 @@ from django.shortcuts import render
 from apitest import views
 from django.http import HttpResponse, HttpResponseRedirect
 from product.models import Product
-from apitest.models import Apistep,Apitest
+from apitest.models import Apistep,Apitest,Apis
 
 def home(request):
 	return render(request, 'home.html')
@@ -48,6 +48,14 @@ def login(request):
 		else:
 			return render(request,'login.html',{'error':'用户名或者密码错误'})
 	return render(request,'login.html')
+
+@login_required
+def apis_manage(request):
+	username = request.session.get('user','')#获取用户名
+	apis_list = Apis.objects.all()#获取所有的列表
+	# 返回将username、apis_list的数据进行填充到HTML中
+	return render(request,'apis_manage.html',{'user':username,'apiss':apis_list})
+
 
 
 
